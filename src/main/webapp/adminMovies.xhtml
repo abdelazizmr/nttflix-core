@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="form">
+
+		<p:messages id="messages"/>
+
+
+		<p:dataTable id="tblMovies" var="movie" value="#{adminMovies.allMovies}"
+					 resizableColumns="true"
+					 editable="true"
+					 paginator="true"
+					 rows="5"
+					 emptyMessage="No movies found"
+					 rowKey="#{movie.id}"
+					 widgetVar="moviesTable">
+
+			<f:facet name="header">Movies List</f:facet>
+			<p:column headerText="ID">
+				<h:outputText value="#{movie.id}" />
+			</p:column>
+			<p:column headerText="Title">
+				<h:outputText value="#{movie.title}" />
+			</p:column>
+			<p:column headerText="Description">
+				<h:outputText value="#{movie.description}" />
+			</p:column>
+			<p:column headerText="Rating">
+				<h:outputText value="#{movie.rating}" />
+			</p:column>
+			<!-- Add more columns as needed -->
+
+			<f:facet name="footer">
+				<p:commandButton id="editMovie" value="Edit" action="#{adminMovies.edit}" update=":form:formEdit"
+								 ajax="false"/>
+				<p:commandButton id="deleteMovie" value="Delete" action="#{adminMovies.deleteSelectedMovie}"
+								 update=":form:messages" ajax="false"/>
+				<p:commandButton id="addMovie" value="Add" action="#{adminMovies.prepareAdd}" ajax="false"/>
+			</f:facet>
+			<p:ajax event="rowSelect"/>
+			<p:ajax event="rowUnselect"/>
+		</p:dataTable>
+
+		<h:panelGroup id="panelEdit" layout="block" rendered="#{adminMovies.editMode}">
+			<p:panel header="Update Movie">
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Title:"/>
+					<p:inputText value="#{adminMovies.selectedMovie.title}" required="true"/>
+					<h:outputLabel value="Description:"/>
+					<p:inputText value="#{adminMovies.selectedMovie.description}" required="true"/>
+					<!-- Add more fields as needed -->
+				</h:panelGrid>
+				<p:commandButton value="Update" action="#{adminMovies.updateMovie}" update=":form:messages"
+								 ajax="false"/>
+				<p:commandButton value="Cancel" action="#{adminMovies.cancelUpdate}" ajax="false"/>
+			</p:panel>
+		</h:panelGroup>
+
+		<h:panelGroup id="panelAdd" layout="block" rendered="#{adminMovies.addMode}">
+			<p:panel header="Add Movie">
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Title:"/>
+					<p:inputText value="#{adminMovies.movieToAdd.title}" required="true"/>
+					<h:outputLabel value="Description:"/>
+					<p:inputText value="#{adminMovies.movieToAdd.description}" required="true"/>
+					<!-- Add more fields as needed -->
+				</h:panelGrid>
+				<p:commandButton value="Add" action="#{adminMovies.addMovie}" update=":form:messages"
+								 ajax="false"/>
+				<p:commandButton value="Cancel" action="#{adminMovies.cancelAdd}" ajax="false"/>
+			</p:panel>
+		</h:panelGroup>
+	</h:form>
+
+</ui:composition>
