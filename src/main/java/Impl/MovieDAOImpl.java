@@ -1,10 +1,12 @@
 package Impl;
 
 import dao.MovieService;
+import model.Comment;
 import model.Movie;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import util.HibernateUtil;
 
 import java.io.Serializable;
@@ -81,6 +83,28 @@ public class MovieDAOImpl implements Serializable, MovieService {
         } catch (HibernateException ex) {
             logger.info("Error deleting movie with ID " + id);
             throw ex;
+        }
+    }
+
+    @Override
+    public void addComment(Comment comment) {
+        System.out.println(comment);
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.persist(comment);
+        session.getTransaction().commit();
+        logger.info("Movie successfully saved, Movie Details=" + comment);
+    }
+    @Override
+    public List<Movie> getMoviesByKeyword(String keyword) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Movie> query = session.createQuery("FROM Movie WHERE title LIKE :keyword", Movie.class);
+            query.setParameter("keyword", "%" + keyword + "%");
+            return query.getResultList();
+        } catch (Exception e) {
+            // Handle any exceptions here
+            e.printStackTrace();
+            return null;
         }
     }
 
