@@ -20,6 +20,7 @@ public class Movie implements Serializable{
     private String description;
     private double rating;
     private String pic;
+	@Enumerated(value = EnumType.STRING)
     private Category category;
 
     @OneToMany(mappedBy = "comment")

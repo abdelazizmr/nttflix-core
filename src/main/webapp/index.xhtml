@@ -1,6 +1,6 @@
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html
+<HTML
 		xmlns="http://www.w3.org/1999/xhtml"
 		xmlns:h="http://java.sun.com/jsf/html"
 		xmlns:f="http://java.sun.com/jsf/core"
@@ -19,34 +19,23 @@
 	</h:head>
 	<h:body>
 		<p:layout fullPage="true">
-			<p:layoutUnit position="north" size="85" resizable="true"
-						  closable="true" collapsible="true">
-				<p:panelGrid columns="2">
-					<h:form>
-						<h:link outcome="/index.jsf">
-							<h:graphicImage library="img" name="logo-nttflix.png" width="300" height="70" />
-						</h:link>
-					</h:form>
-				</p:panelGrid>
-			</p:layoutUnit>
 
-
-
-			<p:layoutUnit position="west" size="200" header="Soui9a dot Com"
+			<p:layoutUnit position="west" size="200" header="NTTFLIX"
 						  collapsible="true">
 				<p:menubar>
-					<p:submenu label="Administration" icon="pi pi-folder">
+
 						<p:menuitem value="Movies" url="./adminMovies.jsf" icon="pi pi-video"/>
-					</p:submenu>
+						<p:menuitem value="Users" url="./adminUsers.jsf" icon="pi pi-video"/>
+
 				</p:menubar>
 			</p:layoutUnit>
 			<p:layoutUnit position="center" resizable="true" size="1200"
 						  minSize="800" maxSize="1400">
-				<ui:insert name="contenu" >
-					Welcome to NTTFLIX
+				<ui:insert name="contenu">
+					Welcome to NTTFLIX<br />
 				</ui:insert>
 			</p:layoutUnit>
 		</p:layout>
 	</h:body>
 </f:view>
-</html>
+</HTML>
