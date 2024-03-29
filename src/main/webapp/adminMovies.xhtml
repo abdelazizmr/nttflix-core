@@ -2,13 +2,13 @@
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
 				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:p="http://primefaces.org/ui">
+				xmlns:p="http://primefaces.org/ui"
+				template="./admin.xhtml"
+>
 
 	<h:form id="form">
 
 		<p:messages id="messages"/>
-
-
 		<p:dataTable id="tblMovies" var="movie" value="#{adminMovies.allMovies}"
 					 resizableColumns="true"
 					 editable="true"
