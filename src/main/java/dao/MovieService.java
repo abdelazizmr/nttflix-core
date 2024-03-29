@@ -1,5 +1,6 @@
 package dao;
 
+import model.Comment;
 import model.Movie;
 
 import java.util.List;
@@ -10,4 +11,7 @@ public interface MovieService {
 	public List<Movie> listMovies();
 	public Movie getMovieById(int id);
 	public void removeMovie(int id);
+
+	void addComment(Comment comment);
+	List<Movie> getMoviesByKeyword(String keyword);
 }
