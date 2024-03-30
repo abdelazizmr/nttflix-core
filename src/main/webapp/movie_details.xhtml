@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Movie Details</title>
+</h:head>
+
+<h:body>
+	<h1>Movie Details</h1>
+
+	<div>
+		<h2>#{movieBean.selectedMovie.title}</h2>
+		<p>Description: #{movieBean.selectedMovie.description}</p>
+		<p>Rating: #{movieBean.selectedMovie.rating}</p>
+	</div>
+
+	<h:form id="commentForm">
+		<h3>Add Comment</h3>
+		<p:inputTextarea value="#{movieBean.comment}" rows="5"></p:inputTextarea>
+		<br />
+		<p:commandButton id="submitComment" value="Submit Comment" action="#{movieBean.addComment}" ajax="false"
+						 update="@form"></p:commandButton>
+	</h:form>
+</h:body>
+
+</html>

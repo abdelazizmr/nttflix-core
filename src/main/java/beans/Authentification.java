@@ -1,7 +1,5 @@
 package beans;
 
-import model.User;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;

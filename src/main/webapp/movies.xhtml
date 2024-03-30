@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Movies List</title>
+</h:head>
+
+<h:body>
+	<h1>Movies List</h1>
+
+	<h:form id="moviesForm">
+		<p:dataTable id="moviesTable" var="movie" value="#{movieBean.movies}" paginator="true"
+					 rows="10" rowKey="#{movie.id}" selectionMode="single" selection="#{movieBean.selectedMovie}"
+					 emptyMessage="No movies found.">
+			<p:column headerText="Title">
+				#{movie.title}
+			</p:column>
+			<p:column headerText="Description">
+				#{movie.description}
+			</p:column>
+			<p:column headerText="Rating">
+				#{movie.rating}
+			</p:column>
+			<p:column headerText="Actions">
+				<p:commandButton value="View Details" action="#{movieBean.loadMovies}" ajax="false"
+								 update=":commentForm" oncomplete="PF('commentDialog').show()" icon="pi pi-comment"/>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+	<p:dialog header="Add Comment" widgetVar="commentDialog" resizable="false" modal="true"
+			  showEffect="fade" hideEffect="fade">
+		<h:form id="commentForm">
+			<p:inputTextarea value="#{movieBean.comment}" rows="5"></p:inputTextarea>
+			<p:commandButton value="Submit Comment" action="#{movieBean.addComment}" ajax="false"
+							 update="moviesForm" oncomplete="PF('commentDialog').hide()" icon="pi pi-check"/>
+		</h:form>
+	</p:dialog>
+</h:body>
+
+</html>

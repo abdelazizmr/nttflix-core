@@ -13,6 +13,8 @@ public class Comment implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	private String message;
+	private String email;
 
 	private String comment;
 	
@@ -43,5 +45,21 @@ public class Comment implements Serializable {
 
 	public void setMovie(Movie movie) {
 		this.movie = movie;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }
