@@ -1,33 +1,38 @@
 package model;
 
-import jakarta.persistence.*;
-
 import java.io.Serializable;
 import java.util.List;
-
-//@XmlRootElement(name="movie")
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="movie")
-public class Movie implements Serializable{
+public class Movie implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-    private String title;
-    private String description;
-    private double rating;
-    private String pic;
-	@Enumerated(value = EnumType.STRING)
 
-    private Category category;
+	private String title;
+	private String description;
+	private double rating;
+	private String pic;
 
-    @OneToMany(mappedBy = "comment")
-    private List<Comment> comments;
+	@ManyToOne
+	@JoinColumn(name="idCateg") // Adjust the column name as needed
+	private Categorie categorie;
+
+
+
+	@OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Comment> comments;
 
 	public Movie() {}
+
+
+
+
+	// Getters and setters
 
 	public int getId() {
 		return id;
@@ -69,13 +74,7 @@ public class Movie implements Serializable{
 		this.pic = pic;
 	}
 
-	public Category getCategory() {
-		return category;
-	}
 
-	public void setCategory(Category category) {
-		this.category = category;
-	}
 
 	public List<Comment> getComments() {
 		return comments;
@@ -84,5 +83,12 @@ public class Movie implements Serializable{
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
+
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
 }
-	

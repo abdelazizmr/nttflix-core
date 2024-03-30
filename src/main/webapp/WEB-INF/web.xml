@@ -17,10 +17,10 @@
     <param-name>javax.faces.PROJECT_STAGE</param-name>
     <param-value>Development</param-value>
   </context-param>
-  <context-param>
-    <param-name>primefaces.THEME</param-name>
-    <param-value>#{authentification.theme}</param-value>
-  </context-param>
+<!--  <context-param>-->
+<!--    <param-name>primefaces.THEME</param-name>-->
+<!--    <param-value>#{authentification.theme}</param-value>-->
+<!--  </context-param>-->
   <context-param>
     <param-name>primefaces.FONT_AWESOME</param-name>
     <param-value>true</param-value>

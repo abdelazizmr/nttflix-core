@@ -49,7 +49,7 @@
 							<h:outputText value="#{movie.description}" />
 						</p:column>
 						<p:column headerText="Category">
-							<h:outputText value="#{movie.category}" />
+							<h:outputText value="#{movie.categorie.name}" />
 						</p:column>
 						<p:column headerText="Rating">
 							<h:outputText value="#{movie.rating}" />
@@ -72,7 +72,7 @@
 				</h:form>
 			</p:row>
 			<p:row id="rowEdit">
-				<h:form id="formEdit" rendered="#{adminMovies.editMode}">
+				<h:form id="formEdit" rendered="#{adminMovies.editMode}" enctype="multipart/form-data">
 					<p:panel header="Update the selected Movie">
 						<h:panelGrid columns="2" id="gridd">
 							<h:outputLabel value="Title : *" for="txt_title" />
@@ -81,11 +81,23 @@
 							<h:outputLabel value="Description : *" for="txt_desc" />
 							<p:inputText id="txt_desc" value="#{adminMovies.selectedMovie.description}"
 										 required="true" />
+							<h:outputLabel value="Photo : *" for="file_photo2" />
+							<p:fileUpload value="#{adminMovies.file}" id="file_photo2"
+										  fileUploadListener="#{adminMovies.upload}"
+										  mode="simple" skinSimple="true" ajax="false"
+										  description="Choisir un Fichier"/>
 							<h:outputLabel value="Category : *" for="txt_categoryUpdate" />
-							<h:selectOneMenu id="txt_categoryUpdate" value="#{movieBean.movie.category}">
-								<f:selectItem itemLabel="Select Category" itemValue="" />
-								<f:selectItems value="#{movieBean.categories}" var="category"
-											   itemLabel="#{category}" itemValue="#{category}" />
+							<p:column headerText="Photo">
+								<p:graphicImage
+										value="/images/photos/#{adminMovies.selectedProduit.pic}"
+										alt="Movie Photo" width="100" height="100" />
+							</p:column>
+							<h:selectOneMenu id="txt_categoryUpdate" converter="categorieConverter"
+											 value="#{adminMovies.selectedMovie}">
+								<f:selectItems value="#{adminMovies.categories}"
+											   var="categ" itemValue="#{categ}"
+											   itemLabel="#{categ.name}"
+								/>
 							</h:selectOneMenu>
 							<h:outputLabel value="Rating : *" for="txt_rating" />
 							<p:inputText id="txt_rating" value="#{adminMovies.selectedMovie.rating}"
@@ -99,7 +111,7 @@
 				</h:form>
 			</p:row>
 			<p:row id="rowNew">
-				<h:form id="formNew" rendered="#{adminMovies.addMode}">
+				<h:form id="formNew" rendered="#{adminMovies.addMode}" enctype="multipart/form-data">
 					<p:growl id="msgs" />
 					<p:panel header="Add a new Movie">
 						<h:panelGrid columns="2" id="grid">
@@ -109,12 +121,19 @@
 							<h:outputLabel value="Description : *" for="txt_descAdd" />
 							<p:inputText id="txt_descAdd" value="#{adminMovies.movieToAdd.description}"
 										 required="true" />
-							<h:outputLabel value="Category : *" for="txt_categoryAdd" />
-							<h:selectOneMenu id="txt_categoryAdd" value="#{movieBean.movie.category}">
-								<f:selectItem itemLabel="Select Category" itemValue="" />
-								<f:selectItems value="#{movieBean.categories}" var="category"
-											   itemLabel="#{category}" itemValue="#{category}" />
+							<h:outputLabel value="Category : *" for="sel_categorie" />
+							<h:selectOneMenu id="sel_categorie" converter="categorieConverter"
+											 value="#{adminMovies.selectedMovie}">
+								<f:selectItems value="#{adminMovies.categories}"
+											   var="categ" itemValue="#{categ}"
+											   itemLabel="#{categ.name}"
+								/>
 							</h:selectOneMenu>
+							<h:outputLabel value="Photo : *" for="file_photo" />
+							<p:fileUpload value="#{adminMovies.file}" id="file_photo"
+										  fileUploadListener="#{adminMovies.upload}"
+										  mode="simple" skinSimple="true" ajax="false"
+										  description="Choisir un Fichier"/>
 							<h:outputLabel value="Rating : *" for="txt_ratingAdd" />
 							<p:inputText id="txt_ratingAdd" value="#{adminMovies.movieToAdd.rating}"
 										 required="true" />
