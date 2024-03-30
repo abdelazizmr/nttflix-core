@@ -13,7 +13,6 @@ public class Authentification implements Serializable{
 	private String login;
 	private String pass;
 	private boolean connected=false;
-	private User currentUser=new User();
 	private String theme="sunny";
 	
 	public static final String[] POSSIBLE_THEMES =
@@ -64,14 +63,6 @@ public class Authentification implements Serializable{
 	}
 
 
-	public User getCurrentUser() {
-		return currentUser;
-	}
-
-
-	public void setCurrentUser(User currentUser) {
-		this.currentUser = currentUser;
-	}
 	
 	public String[] getThemes() {
 		return(POSSIBLE_THEMES);
