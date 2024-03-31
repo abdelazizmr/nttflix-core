@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+>
+<h:head>
+    <title>Movie and Actor List</title>
+</h:head>
+<h:body>
+
+
+    <div class="card">
+        <h:form>
+            <p:growl id="messages"/>
+
+            <p:menubar>
+                <f:facet name="options">
+                    <div class="ui-input-icon-left mr-2">
+                        <i class="pi pi-fw pi-search" />
+                        <p:inputText placeholder="Search"/>
+                    </div>
+
+                </f:facet>
+            </p:menubar>
+        </h:form>
+    </div>
+
+    <div class="card">
+
+        Action  -  Adventure -  Science Fiction -  Romance
+
+    </div>
+
+
+    <div class="movie card">
+        <h:form id="form">
+            <p:dataView var="movie" value="#{movieBean.movieList}" multiViewState="true" rows="12"
+                        paginator="true"
+                        rowsPerPageTemplate="6,12,16"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+
+                <p:dataViewGridItem>
+                    <div class="movie-grid-item card border-1">
+                        <!-- Movie Category -->
+                        <div>
+                            <i class="pi pi-tag movie-category-icon"/>
+                            <span class="movie-category">#{movie.title}</span>
+                        </div>
+                        <!-- Movie Image and Description -->
+                        <div class="movie-grid-item-content">
+                            <p:graphicImage name="images/movie/#{movie.image}" library="demo"/>
+                            <div class="movie-name">#{movie.title}</div>
+                            <div class="movie-description">#{movie.description}</div>
+                            <!-- You may include additional movie details here -->
+                        </div>
+                        <!-- Movie Price and Add to Cart Button -->
+                        <div class="movie-grid-item-bottom">
+                            <h:outputText value="#{movie.rating}" styleClass="movie-price">
+                                <f:convertNumber type="number"/>
+                            </h:outputText>
+                            <!-- Add to Cart button -->
+                            <p:commandButton type="button" value="Watch Now" icon="pi pi-play"/>
+                        </div>
+                    </div>
+                </p:dataViewGridItem>
+
+                <p:dataViewListItem>
+                    <div class="movie-list-item">
+                        <p:graphicImage name="images/movie/#{movie.pic}" library="demo"/>
+                        <div class="movie-list-detail">
+                            <div class="movie-name">#{movie.title}</div>
+                            <div class="movie-description">#{movie.description}</div>
+                            <!-- You may include additional movie details here -->
+                            <i class="pi pi-tag movie-category-icon"/><span
+                                class="movie-category">#{movie.title}</span>
+                        </div>
+                        <div class="movie-list-action">
+                            <h:outputText value="#{movie.rating}" styleClass="movie-price">
+                                <f:convertNumber type="number"/>
+                            </h:outputText>
+                            <!-- Add to Cart button -->
+                            <p:commandButton type="button" value="Watch Now" icon="pi pi-play"/>
+                        </div>
+                    </div>
+                </p:dataViewListItem>
+            </p:dataView>
+        </h:form>
+    </div>
+
+
+
+</h:body>
+</html>

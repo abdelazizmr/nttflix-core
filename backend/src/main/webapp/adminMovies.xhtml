@@ -48,9 +48,17 @@
 						<p:column headerText="Description">
 							<h:outputText value="#{movie.description}" />
 						</p:column>
+						<p:column headerText="Photo">
+							<p:graphicImage
+									value="/images/photos/#{movie.pic}"
+									alt="Movie Photo" width="100" height="100" />
+						</p:column>
+
 						<p:column headerText="Category">
 							<h:outputText value="#{movie.categorie.name}" />
 						</p:column>
+
+
 						<p:column headerText="Rating">
 							<h:outputText value="#{movie.rating}" />
 						</p:column>
@@ -86,18 +94,15 @@
 										  fileUploadListener="#{adminMovies.upload}"
 										  mode="simple" skinSimple="true" ajax="false"
 										  description="Choisir un Fichier"/>
-							<h:outputLabel value="Category : *" for="txt_categoryUpdate" />
 							<p:column headerText="Photo">
 								<p:graphicImage
 										value="/images/photos/#{adminMovies.selectedMovie.pic}"
 										alt="Movie Photo" width="100" height="100" />
 							</p:column>
-							<h:selectOneMenu id="txt_categoryUpdate" converter="categorieConverter"
-											 value="#{adminMovies.selectedMovie}">
-								<f:selectItems value="#{adminMovies.allCategories}"
-											   var="categ" itemValue="#{categ}"
-											   itemLabel="#{categ.name}"
-								/>
+							<h:outputLabel value="Catégorie :" for="sel_categ" />
+							<h:selectOneMenu id="sel_categ" converter="categorieConverter" value="#{adminMovies.selectedMovie.categorie}">
+								<f:selectItems value="#{adminMovies.allCategories}" var="categ"
+											   itemValue="#{categ}" itemLabel="#{categ.name}"/>
 							</h:selectOneMenu>
 							<h:outputLabel value="Rating : *" for="txt_rating" />
 							<p:inputText id="txt_rating" value="#{adminMovies.selectedMovie.rating}"
@@ -121,13 +126,12 @@
 							<h:outputLabel value="Description : *" for="txt_descAdd" />
 							<p:inputText id="txt_descAdd" value="#{adminMovies.movieToAdd.description}"
 										 required="true" />
-							<h:outputLabel value="Category : *" for="sel_categorie" />
-							<h:selectOneMenu id="sel_categorie" converter="categorieConverter"
-											 value="#{adminMovies.selectedMovie}">
-								<f:selectItems value="#{adminMovies.allCategories}"
-											   var="categ" itemValue="#{categ}"
-											   itemLabel="#{categ.name}"
-								/>
+							<h:outputLabel value="Catégorie :  " for="sel_categAdd" />
+							<h:selectOneMenu id="sel_categAdd"
+											 converter="categorieConverter"
+											 value="#{adminMovies.movieToAdd.categorie}">
+								<f:selectItems value="#{adminMovies.allCategories}" var="categ"
+											   itemValue="#{categ}" itemLabel="#{categ.name}"/>
 							</h:selectOneMenu>
 							<h:outputLabel value="Photo : *" for="file_photo" />
 							<p:fileUpload value="#{adminMovies.file}" id="file_photo"
