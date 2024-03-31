@@ -89,12 +89,12 @@
 							<h:outputLabel value="Category : *" for="txt_categoryUpdate" />
 							<p:column headerText="Photo">
 								<p:graphicImage
-										value="/images/photos/#{adminMovies.selectedProduit.pic}"
+										value="/images/photos/#{adminMovies.selectedMovie.pic}"
 										alt="Movie Photo" width="100" height="100" />
 							</p:column>
 							<h:selectOneMenu id="txt_categoryUpdate" converter="categorieConverter"
 											 value="#{adminMovies.selectedMovie}">
-								<f:selectItems value="#{adminMovies.categories}"
+								<f:selectItems value="#{adminMovies.allCategories}"
 											   var="categ" itemValue="#{categ}"
 											   itemLabel="#{categ.name}"
 								/>
@@ -124,7 +124,7 @@
 							<h:outputLabel value="Category : *" for="sel_categorie" />
 							<h:selectOneMenu id="sel_categorie" converter="categorieConverter"
 											 value="#{adminMovies.selectedMovie}">
-								<f:selectItems value="#{adminMovies.categories}"
+								<f:selectItems value="#{adminMovies.allCategories}"
 											   var="categ" itemValue="#{categ}"
 											   itemLabel="#{categ.name}"
 								/>

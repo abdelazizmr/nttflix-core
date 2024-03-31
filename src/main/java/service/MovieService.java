@@ -16,6 +16,5 @@ public interface MovieService {
     List<Movie> getMovieByKeyword(String keyword);
     Response addComment(int movieId, Comment comment);
 
-    List<Movie> getMoviesByKeyword(String keyword);
 
 }

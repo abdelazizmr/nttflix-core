@@ -1,11 +1,18 @@
 package model;
 
+
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import jakarta.persistence.*;
+
 
 @Entity
 @Table(name="movie")
+@JsonIgnoreProperties("comments")
 public class Movie implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,17 +26,15 @@ public class Movie implements Serializable {
 	private String pic;
 
 	@ManyToOne
-	@JoinColumn(name="idCateg") // Adjust the column name as needed
+	@JoinColumn(name="idCateg")
 	private Categorie categorie;
 
 
 
-	@OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "movie")
 	private List<Comment> comments;
 
 	public Movie() {}
-
-
 
 
 	// Getters and setters
@@ -90,5 +95,12 @@ public class Movie implements Serializable {
 
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
+	}
+
+	public void addComment(Comment comment) {
+		if (comments == null) {
+			comments = new ArrayList<>();
+		}
+		comments.add(comment);
 	}
 }

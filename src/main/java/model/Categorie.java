@@ -1,12 +1,18 @@
 package model;
 
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import jakarta.persistence.*;
+
 
 
 @Entity
 @Table(name="categorie")
+
 public class Categorie implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,6 +25,7 @@ public class Categorie implements Serializable {
 
 	//bi-directional many-to-one association to Produit
 	@OneToMany(mappedBy="categorie")
+	@JsonIgnore
 	private List<Movie> movies;
 
 	public Categorie() {

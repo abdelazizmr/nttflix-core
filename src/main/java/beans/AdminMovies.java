@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -14,7 +15,7 @@ import javax.servlet.ServletContext;
 import Impl.CategoryDAOImpl;
 import dao.CategoryService;
 import dao.MovieService;
-import jakarta.annotation.PostConstruct;
+
 import model.Categorie;
 import model.Movie;
 import Impl.MovieDAOImpl;
@@ -36,7 +37,7 @@ public class AdminMovies implements Serializable {
 
     private UploadedFile file;
 
-    private List<Categorie> categories;
+    private List<Categorie> allCategories;
     private CategoryService categService;
     {
         categService = new CategoryDAOImpl();
@@ -50,16 +51,15 @@ public class AdminMovies implements Serializable {
     @PostConstruct
     public void init() {
         allMovies = getAllMovies();
-        categories = getCategories();
     }
 
-    public List<Categorie> getCategories() {
-        categories = categService.listCategories();
-        return categories;
+    public List<Categorie> getAllCategories() {
+        allCategories = categService.listCategories();
+        return allCategories;
     }
 
-    public void setCategories(List<Categorie> categories) {
-        this.categories = categories;
+    public void setAllCategories(List<Categorie> categories) {
+        this.allCategories = categories;
     }
 
     public void setAllMovies(List<Movie> allMovies) {

@@ -44,19 +44,20 @@
 						<p:column headerText="Nom"
 								  filterBy="#{categ.name}"
 								  filterMatchMode="contains">
-							<h:outputText value="#{categ.nom}" />
+							<h:outputText value="#{categ.name}" />
 						</p:column>
 						<f:facet name="footer">
 
+							<p:commandButton id="addCateg" value="Ajouter"
+											 action="#{adminCategories.prepareAdd}"
+											 ajax="false" icon="ui-icon-circle-plus"/>
 							<p:commandButton id="editCateg" value="Editer"
 											 action="#{adminCategories.edit}" update="formEdit"
 											 ajax="false" icon="ui-icon-circle-check"/>
 							<p:commandButton id="deleteCateg" value="! Supprimer !"
 											 action="#{adminCategories.deleteSelectedCategorie}" update="growl"
 											 ajax="false" icon="ui-icon-circle-minus"/>
-							<p:commandButton id="addCateg" value="Ajouter"
-											 action="#{adminCategories.prepareAdd}"
-											 ajax="false" icon="ui-icon-circle-plus"/>
+
 
 						</f:facet>
 						<p:ajax event="rowSelect"/>
@@ -71,7 +72,6 @@
 							<h:outputLabel value="Nom : *" for="txt_name" />
 							<p:inputText id="txt_name" value="#{adminCategories.selectedCategorie.name}"
 										 required="true" />
-
 							<p:commandButton id="btn_cancel" value="Annuler"
 											 action="#{adminCategories.cancelUpdate}"  ajax="false"/>
 							<p:commandButton id="btn_update" value="Modifier"
@@ -85,7 +85,7 @@
 				<h:form id="formNew" rendered="#{adminCategories.addMode}">
 					<p:growl id="msgs" />
 					<p:panel header="Ajout d'une Nouvelle Catégorie">
-						<h:panelGrid columns="2" id="gridd">
+						<h:panelGrid columns="2" id="grid1">
 							<h:outputLabel value="Nom : *" for="txt_nameAdd" />
 							<p:inputText id="txt_nameAdd" value="#{adminCategories.categorieToAdd.name}"
 										 required="true" />

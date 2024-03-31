@@ -1,13 +1,16 @@
 package service.Impl;
 
+
+
+
 import Impl.MovieDAOImpl;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
 import model.Comment;
 import model.Movie;
 import model.Response;
 import service.MovieService;
 
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("/movies")
@@ -19,7 +22,6 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     @GET
-    @Path("/")
     public List<Movie> listMovies() {
         return movieDAO.listMovies();
     }
@@ -34,14 +36,14 @@ public class MovieServiceImpl implements MovieService {
     @Override
     @GET
     @Path("/search")
-    public List<Movie> getMovieByKeyword(@QueryParam("keyword") String keyword) {
+    public List<Movie> getMovieByKeyword(@QueryParam("q") String keyword) {
         return movieDAO.getMoviesByKeyword(keyword);
     }
 
     @Override
     @POST
     @Path("/{movieId}/comments/add")
-    public Response addComment(int movieId, Comment comment) {
+    public Response addComment(@PathParam("movieId") int movieId, Comment comment) {
         Response response = new Response();
         Movie movie = movieDAO.getMovieById(movieId);
         if (movie == null) {
@@ -49,18 +51,14 @@ public class MovieServiceImpl implements MovieService {
             response.setMessage("Movie doesn't exist");
             return response;
         }
-        // Associate comment with movie
-        comment.setMovie(movie);
-        movieDAO.addComment(comment);
+        // Add comment to the movie
+        movie.addComment(comment);
+        // Update movie in the database
+        movieDAO.updateMovie(movie);
         response.setStatus(true);
         response.setMessage("Comment added successfully");
         return response;
     }
 
-    @Override
-
-    public List<Movie> getMoviesByKeyword(String keyword) {
-        return movieDAO.getMoviesByKeyword(keyword);
-    }
 
 }

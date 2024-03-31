@@ -1,22 +1,18 @@
 package app;
 
-import jakarta.ws.rs.ApplicationPath;
-import jakarta.ws.rs.core.Application;
-
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
 
 @ApplicationPath("/api")
-public class ApiApp extends Application {
+public class App extends Application {
     private Set<Object> singletons;
-
-    public ApiApp() {
+    public App() {
         singletons = new HashSet<Object>();
-
     }
     @Override
     public Set<Object> getSingletons() {
         return singletons;
     }
 }
-
