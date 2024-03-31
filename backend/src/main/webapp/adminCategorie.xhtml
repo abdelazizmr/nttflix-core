@@ -24,17 +24,6 @@
 								 emptyMessage="Aucune Catégorie enregistrée"
 								 filteredValue="#{adminCategories.filteredCategories}"
 								 widgetVar="categsTable">
-						<f:facet name="{Exporters}">
-							<h:commandLink>
-								<p:graphicImage name="img/excel.png" width="24" />
-								<p:dataExporter type="xls" target="tblCategs" fileName="Catégories" />
-							</h:commandLink>
-
-							<h:commandLink>
-								<p:graphicImage name="img/pdf.png" width="24" />
-								<p:dataExporter type="pdf" target="tblCategs" fileName="Catégories" />
-							</h:commandLink>
-						</f:facet>
 						<f:facet name="header">Liste des Catégories</f:facet>
 						<p:column selectionMode="single"
 								  style="width:16px;text-align: center" />

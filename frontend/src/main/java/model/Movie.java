@@ -1,21 +1,31 @@
-package models;
+package model;
 
-public class Movie {
+
+import java.util.List;
+
+public class Movie{
+
+
+
     private int id;
+
     private String title;
     private String description;
     private double rating;
     private String pic;
 
-    public Movie(){};
 
-    public Movie(int id, String title, String description, double rating, String pic) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.rating = rating;
-        this.pic = pic;
-    }
+    private Categorie categorie;
+
+
+
+
+    private List<Comment> comments;
+
+    public Movie() {}
+
+
+    // Getters and setters
 
     public int getId() {
         return id;
@@ -56,4 +66,24 @@ public class Movie {
     public void setPic(String pic) {
         this.pic = pic;
     }
+
+
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Categorie getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+    }
+
+
 }

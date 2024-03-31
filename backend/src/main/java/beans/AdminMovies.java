@@ -1,6 +1,7 @@
 package beans;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,9 +34,9 @@ public class AdminMovies implements Serializable {
 
     private boolean editMode = false;
     private boolean addMode = false;
-    private String path;
 
-    private UploadedFile file;
+
+    private UploadedFile photo;
 
     private List<Categorie> allCategories;
     private CategoryService categService;
@@ -168,79 +169,110 @@ public class AdminMovies implements Serializable {
                 addMessage(null, new FacesMessage(severity, summary, detail));
     }
 
+    public UploadedFile getPhoto() {
+        return photo;
+    }
 
-    public void copyFile(String fileName, InputStream in) {
+    public void setPhoto(UploadedFile photo) {
+        this.photo = photo;
         try {
-            OutputStream out = new FileOutputStream(new File(fileName));
-
-            int read = 0;
-            byte[] bytes = new byte[1024];
-
-            while ((read = in.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
+            String uploadPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("") +
+                    "images" + File.separator + "photos";
+            System.out.println("Upload Path:" + uploadPath);
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
             }
-            in.close();
-            out.flush();
-            out.close();
+            String newName = UUID.randomUUID().toString() + photo.getFileName();
+            if (photo.getSize() > 0) {
+                try (InputStream input = photo.getInputStream()) {
+                    Files.copy(input, new File(uploadPath, newName).toPath());
+                }
+                if(addMode) {
+                    movieToAdd.setPic(newName);
+                }else  if(editMode) {
+                    selectedMovie.setPic(newName);
+                }
+
+            }
         } catch (IOException e) {
-            System.out.println("Erreur dans CopyFile !");
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    public void upload(FileUploadEvent event) {
-        System.out.println("**************** Calling upload ! ****************");
-
-        if (file != null) {
-            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-
-            try {
-                copyFile(getPath() + event.getFile().getFileName(), event.getFile().getInputStream());
-            } catch (IOException e) {
-                System.out.println("Erreur dans upload !");
-                e.printStackTrace();
-            }
-            System.out.println("Upload avec Succès");
-        } else {
-            System.out.println("File n'est pas différent de NULL");
-        }
-    }
-
-    public String getPath() {
-        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
-                .getContext();
-        path = servletContext.getRealPath("") + "images" + File.separator + "photos";
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public UploadedFile getFile() {
-        return file;
-    }
-
-    public void setFile(UploadedFile file) {
-        System.out.println("Name = " + file.getFileName() + " ans Size = " + file.getSize());
-        this.file = file;
-        if (this.file.getSize() > 0) {
-            System.out.println("Afeter test file != null => file = "+this.file);
-            String randomName = UUID.randomUUID().toString() + file.getFileName();
-            try {
-                copyFile(getPath() + File.separator + randomName, file.getInputStream());
-                if (editMode) {
-                    selectedMovie.setPic(randomName);
-                }
-                if (addMode) {
-                    movieToAdd.setPic(randomName);
-                }
-
-            } catch (IOException e) {
-                System.out.println("Erreur dans upload !");
-                e.printStackTrace();
-            }
-        }
-    }
+    //    public void copyFile(String fileName, InputStream in) {
+//        try {
+//            OutputStream out = new FileOutputStream(new File(fileName));
+//
+//            int read = 0;
+//            byte[] bytes = new byte[1024];
+//
+//            while ((read = in.read(bytes)) != -1) {
+//                out.write(bytes, 0, read);
+//            }
+//            in.close();
+//            out.flush();
+//            out.close();
+//        } catch (IOException e) {
+//            System.out.println("Erreur dans CopyFile !");
+//            System.out.println(e.getMessage());
+//        }
+//    }
+//
+//    public void upload(FileUploadEvent event) {
+//        System.out.println("**************** Calling upload ! ****************");
+//
+//        if (file != null) {
+//            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+//            FacesContext.getCurrentInstance().addMessage(null, message);
+//
+//            try {
+//                copyFile(getPath() + event.getFile().getFileName(), event.getFile().getInputStream());
+//            } catch (IOException e) {
+//                System.out.println("Erreur dans upload !");
+//                e.printStackTrace();
+//            }
+//            System.out.println("Upload avec Succès");
+//        } else {
+//            System.out.println("File n'est pas différent de NULL");
+//        }
+//    }
+//
+//    public String getPath() {
+//        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
+//                .getContext();
+//        path = servletContext.getRealPath("") + "images" + File.separator + "photos";
+//        return path;
+//    }
+//
+//    public void setPath(String path) {
+//        this.path = path;
+//    }
+//
+//    public UploadedFile getFile() {
+//        return file;
+//    }
+//
+//    public void setFile(UploadedFile file) {
+//        System.out.println("Name = " + file.getFileName() + " ans Size = " + file.getSize());
+//        this.file = file;
+//        if (this.file.getSize() > 0) {
+//            System.out.println("Afeter test file != null => file = "+this.file);
+//            String randomName = UUID.randomUUID().toString() + file.getFileName();
+//            try {
+//                copyFile(getPath() + File.separator + randomName, file.getInputStream());
+//                if (editMode) {
+//                    selectedMovie.setPic(randomName);
+//                }
+//                if (addMode) {
+//                    movieToAdd.setPic(randomName);
+//                }
+//
+//            } catch (IOException e) {
+//                System.out.println("Erreur dans upload !");
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }

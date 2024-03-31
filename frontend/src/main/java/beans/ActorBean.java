@@ -11,8 +11,6 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
-import models.Actor;
-
 @ManagedBean(name = "actorBean", eager = true)
 @SessionScoped
 public class ActorBean implements Serializable {

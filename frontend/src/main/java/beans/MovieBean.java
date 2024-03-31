@@ -10,7 +10,7 @@ import javax.faces.bean.SessionScoped;
 
 
 import com.google.gson.Gson;
-import models.Movie;
+import model.Movie;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
