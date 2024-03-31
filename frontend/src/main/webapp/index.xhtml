@@ -1,96 +1,57 @@
 <!DOCTYPE html>
-<html
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:p="http://primefaces.org/ui"
->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-    <title>Movie and Actor List</title>
+    <title>NTTFLIX</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 </h:head>
 <h:body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">NTTFLIX</a>
 
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Horror</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Action</a>
+                </li><li class="nav-item">
+                <a class="nav-link" href="#">Science</a>
+            </li><li class="nav-item">
+                <a class="nav-link" href="#">Adventure</a>
+            </li>
 
-    <div class="card">
-        <h:form>
-            <p:growl id="messages"/>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2"
+                       type="search" placeholder="Search" aria-label="Search" />
+            </form>
+        </div>
+    </nav>
 
-            <p:menubar>
-                <f:facet name="options">
-                    <div class="ui-input-icon-left mr-2">
-                        <i class="pi pi-fw pi-search" />
-                        <p:inputText placeholder="Search"/>
-                    </div>
-
-                </f:facet>
-            </p:menubar>
-        </h:form>
-    </div>
-
-    <div class="card">
-
-        Action  -  Adventure -  Science Fiction -  Romance
-
-    </div>
-
-
-    <div class="movie card">
-        <h:form id="form">
-            <p:dataView var="movie" value="#{movieBean.movieList}" multiViewState="true" rows="12"
-                        paginator="true"
-                        rowsPerPageTemplate="6,12,16"
-                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                        gridIcon="pi pi-th-large" listIcon="pi pi-bars">
-
-                <p:dataViewGridItem>
-                    <div class="movie-grid-item card border-1">
-                        <!-- Movie Category -->
-                        <div>
-                            <i class="pi pi-tag movie-category-icon"/>
-                            <span class="movie-category">#{movie.title}</span>
-                        </div>
-                        <!-- Movie Image and Description -->
-                        <div class="movie-grid-item-content">
-                            <p:graphicImage name="images/movie/#{movie.image}" library="demo"/>
-                            <div class="movie-name">#{movie.title}</div>
-                            <div class="movie-description">#{movie.description}</div>
-                            <!-- You may include additional movie details here -->
-                        </div>
-                        <!-- Movie Price and Add to Cart Button -->
-                        <div class="movie-grid-item-bottom">
-                            <h:outputText value="#{movie.rating}" styleClass="movie-price">
-                                <f:convertNumber type="number"/>
-                            </h:outputText>
-                            <!-- Add to Cart button -->
-                            <p:commandButton type="button" value="Watch Now" icon="pi pi-play"/>
+    <div class="container mt-3">
+        <div class="row">
+            <ui:repeat var="movie" value="#{movieRestBean.movies}">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <img src="C:\Users\PE\OneDrive\Desktop\Beca NTT\Java\Tomcat\apache-tomcat-9.0.86\webapps\NTTflix_core_war\images\photos\#{movie.pic}"
+                             class="card-img-top" alt="#{movie.title}" />
+                        <div class="card-body">
+                            <h5 class="card-title">#{movie.title}</h5>
+                            <p class="card-text">Rating : <strong>#{movie.rating}</strong></p>
+                            <a href="movie_details.xhtml?id=#{movie.id}" class="btn btn-primary">See More</a>
                         </div>
                     </div>
-                </p:dataViewGridItem>
-
-                <p:dataViewListItem>
-                    <div class="movie-list-item">
-                        <p:graphicImage name="images/movie/#{movie.pic}" library="demo"/>
-                        <div class="movie-list-detail">
-                            <div class="movie-name">#{movie.title}</div>
-                            <div class="movie-description">#{movie.description}</div>
-                            <!-- You may include additional movie details here -->
-                            <i class="pi pi-tag movie-category-icon"/><span
-                                class="movie-category">#{movie.title}</span>
-                        </div>
-                        <div class="movie-list-action">
-                            <h:outputText value="#{movie.rating}" styleClass="movie-price">
-                                <f:convertNumber type="number"/>
-                            </h:outputText>
-                            <!-- Add to Cart button -->
-                            <p:commandButton type="button" value="Watch Now" icon="pi pi-play"/>
-                        </div>
-                    </div>
-                </p:dataViewListItem>
-            </p:dataView>
-        </h:form>
+                </div>
+            </ui:repeat>
+        </div>
     </div>
 
-
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </h:body>
 </html>

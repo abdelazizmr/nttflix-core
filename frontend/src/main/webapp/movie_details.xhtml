@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/primefaces/12.0.0/themes/saga-blue/theme.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/primefaces/12.0.0/primefaces.min.css" />
+    <f:metadata>
+        <f:viewParam name="id" value="#{param.id}" converter="javax.faces.Integer" />
+        <f:event type="preRenderView" listener="#{movieRestBean.getMovieDetails(param.id)}" />
+    </f:metadata>
+</h:head>
+<h:body>
+    <f:viewParam name="id" value="#{movieRestBean.selectedMovie.id}" required="true" />
+
+    <h1 class="text-center">Movie Details</h1>
+    <div class="card mb-3">
+        <div class="row">
+            <div class="col-md-4">
+                <p:graphicImage name="images/photos/#{movieRestBean.selectedMovie.pic}" alt="#{movieRestBean.selectedMovie.title}" styleClass="img-fluid" />
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">#{movieRestBean.selectedMovie.title}</h5>
+                    <p class="card-text"><b>Description:</b> #{movieRestBean.selectedMovie.description}</p>
+                    <p class="card-text"><b>Rating:</b> #{movieRestBean.selectedMovie.rating}</p>
+                    <p class="card-text"><b>Category:</b> #{movieRestBean.selectedMovie.categorie.name}</p>
+                    <p class="card-text"><b>Release Date:</b> #{movieRestBean.selectedMovie.releaseDate}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p:button outcome="index" icon="pi pi-back" label="Back to Movies" />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/primefaces/12.0.0/primefaces.min.js"></script>
+</h:body>
+</html>
