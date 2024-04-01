@@ -1,4 +1,4 @@
-# NTTFLIX Web Application Made By : [Abdelaziz Mrabet, Houda el Mesbahi]
+# NTTFLIX Web Application :
 
 NTTFLIX is a web application designed for managing movies and categories. It provides an administration interface for managing movies and categories using JavaServer Faces (JSF) Framework. Additionally, it includes a RESTful web service to interact with the movie and category data.
 
@@ -25,3 +25,6 @@ The frontend interface of the application is built using JavaServer Faces (JSF).
 - **Consult Specific Movie:** Allows users to view details of a specific movie.
 - **Select Movies by Category:** Enables users to filter movies by selecting a specific category.
 
+Made By : 
+- Abdelaziz Mrabet 
+- Houda el Mesbahi
