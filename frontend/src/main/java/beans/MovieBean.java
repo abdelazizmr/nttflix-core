@@ -33,6 +33,8 @@ public class MovieBean implements Serializable {
     private Movie selectedMovie = new Movie();
     private String result = "No data";
 
+    private List<Movie> filteredMovies;
+
 
 
     public void getMovieDetails(int id) {
@@ -59,6 +61,8 @@ public class MovieBean implements Serializable {
                 categorie.setName(categorieObj.getString("name"));
 
                 selectedMovie.setCategorie(categorie);
+                System.out.println("******************** Selected Movie *****************");
+                System.out.println(selectedMovie);
 
                 // If you have comments, you can parse them here
             }
@@ -109,8 +113,18 @@ public class MovieBean implements Serializable {
         return movies;
     }
 
+
+
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
+    }
+
+    public List<Movie> getFilteredMovies() {
+        return filteredMovies;
+    }
+
+    public void setFilteredMovies(List<Movie> filteredMovies) {
+        this.filteredMovies = filteredMovies;
     }
 
     public Movie getSelectedMovie() {

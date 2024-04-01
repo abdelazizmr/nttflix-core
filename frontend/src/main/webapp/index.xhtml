@@ -2,52 +2,47 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
 <h:head>
     <title>NTTFLIX</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 </h:head>
+
 <h:body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">NTTFLIX</a>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Horror</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Action</a>
-                </li><li class="nav-item">
-                <a class="nav-link" href="#">Science</a>
-            </li><li class="nav-item">
-                <a class="nav-link" href="#">Adventure</a>
-            </li>
 
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2"
-                       type="search" placeholder="Search" aria-label="Search" />
-            </form>
-        </div>
-    </nav>
+    <ui:include src="header.xhtml" />
 
     <div class="container mt-3">
-        <div class="row">
-            <ui:repeat var="movie" value="#{movieRestBean.movies}">
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <img src="C:\Users\PE\OneDrive\Desktop\Beca NTT\Java\Tomcat\apache-tomcat-9.0.86\webapps\NTTflix_core_war\images\photos\#{movie.pic}"
-                             class="card-img-top" alt="#{movie.title}" />
-                        <div class="card-body">
-                            <h5 class="card-title">#{movie.title}</h5>
-                            <p class="card-text">Rating : <strong>#{movie.rating}</strong></p>
-                            <a href="movie_details.xhtml?id=#{movie.id}" class="btn btn-primary">See More</a>
-                        </div>
-                    </div>
-                </div>
-            </ui:repeat>
-        </div>
+
+
+        <p:dataTable id="moviesTable" var="movie" value="#{movieRestBean.movies}"
+                      rows="5" emptyMessage="No movies found"
+                     filteredValue="#{movieRestBean.filteredMovies}"
+        >
+            <p:column headerText="ID">
+                <h:outputText value="#{movie.id}" />
+            </p:column>
+            <p:column headerText="Title">
+                <h:outputText value="#{movie.title}" />
+            </p:column>
+            <p:column headerText="Description">
+                <h:outputText value="#{movie.description.substring(0,10)}.." />
+            </p:column>
+            <p:column headerText="Rating">
+                <h:outputText value="#{movie.rating}" />
+            </p:column>
+            <p:column headerText="Action">
+                <a href="movie_details.xhtml?id=#{movie.id}" class="btn btn-primary">
+                    See More
+                </a>
+            </p:column>
+        </p:dataTable>
+
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

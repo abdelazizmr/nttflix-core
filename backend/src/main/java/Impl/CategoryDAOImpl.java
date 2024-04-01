@@ -6,8 +6,12 @@ import java.util.logging.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import model.Categorie;
+import model.Movie;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import dao.CategoryService;
@@ -85,6 +89,30 @@ public class CategoryDAOImpl implements CategoryService {
         }
         session.getTransaction().commit();
         logger.info("Categorie deleted successfully, Categorie details="+categorie);
+    }
+
+    @Override
+    public List<Movie> getMoviesByCategoryId(int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+
+        // Create CriteriaBuilder
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        // Create CriteriaQuery
+        CriteriaQuery<Movie> criteria = builder.createQuery(Movie.class);
+        // Specify criteria root
+        Root<Movie> root = criteria.from(Movie.class);
+        // Join with Category to filter movies by category ID
+        criteria.select(root).where(builder.equal(root.get("categorie").get("id"), id));
+
+        // Execute query and retrieve results
+        List<Movie> movies = session.createQuery(criteria).getResultList();
+
+        session.getTransaction().commit();
+
+        logger.info("Movies by category = "+movies);
+
+        return movies;
     }
 
 
